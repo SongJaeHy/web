@@ -88,7 +88,8 @@ public class PatternServlet extends HttpServlet {
 		} else if(uri.equals("/MyFirstWeb/delete.do")) {
 			System.out.println("탈퇴 요청 확인");
 		} 
-		if(uri.equals("/MyFirstWeb/write.do")) {
+		// PatternServlet2의 패턴을 .do로 고쳐서 여기 옮겨주세요.
+		else if(uri.equals("/MyFirstWeb/write.do")) {
 			System.out.println("글쓰기 창으로 이동합니다.");
 		}else if(uri.equals("/MyFirstWeb/update.do")) {
 			System.out.println("글 수정 창으로 이동합니다.");
