@@ -23,7 +23,7 @@
 			<c:forEach var="board" items="${boardList }">
 			<tr>
 				<td>${board.bId}</td>	
-				<td><a href="#">${board.bTitle}</a></td>	
+				<td><a href="/MyFirstWeb/boarddetail.do?bId=1">${board.bTitle}</a></td>	
 				<td>${board.bName}</td>	
 				<td>${board.bDate}</td>	
 				<td>${board.bHit}</td>

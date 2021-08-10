@@ -128,7 +128,7 @@ public class PatternServlet extends HttpServlet {
 			
 			ui = "/board/board_detail.jsp";
 		}else {
-			out.print("잘못된 패턴입니다. Funkyou");
+			out.print("잘못된 패턴입니다.");
 		}
 		
 		
