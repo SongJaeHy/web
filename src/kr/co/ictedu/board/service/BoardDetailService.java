@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import kr.co.ictedu.board.model.BoardDAO;
+import kr.co.ictedu.board.model.BoardVO;
 
 public class BoardDetailService implements IBoardService {
 
@@ -15,9 +16,10 @@ public class BoardDetailService implements IBoardService {
 		BoardDAO dao = BoardDAO.getInstance();
 		
 		// DAO에 글 번호를 넘겨서 detail페이지 데이터를 얻어옵니다.
+		BoardVO board = dao.getBoardDetail(bId);
 		
 		// 포워딩을 위해 setAttribute()로 데이터를 실어줍니다.
-		
+		request.setAttribute("board", board);
 	}
 
 }

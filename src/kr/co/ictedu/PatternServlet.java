@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.ictedu.board.service.BoardDetailService;
 import kr.co.ictedu.board.service.BoardListService;
 import kr.co.ictedu.board.service.BoardWriteService;
 import kr.co.ictedu.board.service.IBoardService;
@@ -121,6 +122,11 @@ public class PatternServlet extends HttpServlet {
 			sv.execute(request, response);
 			
 			ui = "/board/board_list.jsp";
+		}else if(uri.equals("/MyFirstWeb/boarddetail.do")) {
+			sv = new BoardDetailService();
+			sv.execute(request, response);
+			
+			ui = "/board/board_detail.jsp";
 		}else {
 			out.print("잘못된 패턴입니다. Funkyou");
 		}

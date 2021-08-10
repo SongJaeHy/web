@@ -131,6 +131,8 @@ public class BoardDAO {
 		}
 		return boardList;
 	}// end getBoardList
+	
+	// 글 하네에 대한 상세 정보를 가져오는 로직
 	public BoardVO getBoardDetail(String bId) {
 		// bId에 해당하는 글 정보를 가져와서 리턴하도록 로직을 작성해주세요.
 		Connection con = null;
@@ -138,12 +140,13 @@ public class BoardDAO {
 		ResultSet rs = null;
 		BoardVO board = new BoardVO();
 		
-		String sql = "SELECT FROM jspboard WHERE bid=?";
+		String sql = "SELECT * FROM jspboard WHERE bid=?";
 		try {
-		con = ds.getConnection();
-		pstmt = con.prepareStatement(sql);
-		pstmt.setInt(1, board.getbId());
-		rs = pstmt.executeQuery();
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, bId);
+			rs = pstmt.executeQuery();
 		
 		if(rs.next()) {
 			board.setbId(rs.getInt("bId"));
@@ -173,7 +176,7 @@ public class BoardDAO {
 	}
 		return board;
 		
-	}
+	}// end getBoardDetail
 }
 
 		
