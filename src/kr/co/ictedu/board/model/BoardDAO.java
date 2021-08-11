@@ -177,7 +177,73 @@ public class BoardDAO {
 		return board;
 		
 	}// end getBoardDetail
-}
+	public int deleteBoard(String bId) {
+		// 사용할 변수들 선언
+		Connection con= null;
+		PreparedStatement pstmt = null;
+		int resultCode;
+		
+		// 커넥션 연결 및 쿼리문 실행	
+		String sql = "DELETE FROM jspboard WHERE bid=?";
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, bId);
+			
+			pstmt.executeUpdate();
+			resultCode = 1;
+		}catch(Exception e){
+			e.printStackTrace();
+			resultCode = 0;
+		}finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return resultCode;
+	} //end deleteBoard
+
+	// 수정로직
+	public int updateBoard(BoardVO board) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		String sql = "UPDATE jspboard SET bname=? btitle=? bcontent=? WHERE bid=?";
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setString(1, board.getbName());
+			pstmt.setString(2, board.getbTitle());
+			pstmt.setString(3,  board.getbContent());
+			pstmt.setInt(4, board.getbId());
+			
+			pstmt.executeUpdate();
+		
+	}catch(Exception e) {
+		e.printStackTrace();
+	}finally {
+		try {
+			if(con !=null && !con.isClosed()) {
+				con.close();
+			}if(pstmt != null&& !pstmt.isClosed()) {
+				con.close();
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+		return 0; //end updateBoard
+	}
+}	
 
 		
 		

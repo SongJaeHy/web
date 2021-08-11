@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import kr.co.ictedu.board.service.BoardDeleteService;
 import kr.co.ictedu.board.service.BoardDetailService;
 import kr.co.ictedu.board.service.BoardListService;
 import kr.co.ictedu.board.service.BoardWriteService;
@@ -109,13 +110,17 @@ public class PatternServlet extends HttpServlet {
 			// 복잡한 서비스 로직을 이 파일에는 한 줄만 기입해서 처리합니다.
 			sv.execute(request, response);
 			// 경로 저장시 / 는 WebContent폴더가 기본으로 잡혀있습니다.
-			ui = "/board/board_list.jsp";
+			ui = "/boardselect.do";
 			// 경로 저장 후에는 페이지 강제이동(forward)를 수행합니다.
 		
 		}else if(uri.equals("/MyFirstWeb/boardupdate.do")) {
-			System.out.println("글 수정 창으로 이동합니다.");
+			sv = new BoardDetailService();
+			sv.execute(request, response);
+			ui="/board/board_update_form.jsp";
 		}else if(uri.equals("/MyFirstWeb/boarddelete.do")) {
-			System.out.println("글 삭제 창으로 이동합니다.");
+			sv = new BoardDeleteService();
+			sv.execute(request, response);
+			ui = "/boardselect.do";
 		}else if(uri.equals("/MyFirstWeb/boardselect.do")) {
 			// 글 조회창 로직을 실행하도록 내부 코드를 작성해주세요.
 			sv = new BoardListService();

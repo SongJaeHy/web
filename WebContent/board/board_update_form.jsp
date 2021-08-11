@@ -8,21 +8,29 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>글쓰기 창</h1>
+	<h1>수정창</h1>
+	<form action="#" method="post">
+	
+		<!--  hidden 태그를 이용해 나머지 요소들도 다 첨부해주세요. -->
+		<input type="hidden" value="${board.bId }" name="bId" />
+		<input type="hidden" value="${board.bHit }" name="bHit" />
+		<input type="hidden" value="${board.bDate }" name="bDate" />
+		<input type="hidden" value="${board.bName }" name="bName" />
+		
 		<table border ="1">
 			<tr>
 				<td>글 번호</td>
-				<td>${board.bId}</td>
+				<td>${board.bId }</td>
 				<td>조회수</td>
-				<td>${board.bHit}</td>
+				<td>${board.bHit }</td>
 			</tr>
 			<tr>
 				<td>글 쓴 날짜</td>
-				<td>${board.bDate}</td>
+				<td>${board.bDate }</td>
 			</tr>
 			<tr>
 				<td>글 제목</td>
-				<td>${board.bTitle}</td>
+				<td><input type="text" name="title" value="${board.bTitle }"></td>
 			</tr>
 			<tr>
 				<td>본문</td>
@@ -34,19 +42,14 @@
 			</tr>
 			<tr>
 				<td>
+					<input type="submit" value="수정하기" />
+					<input type="reset" value="초기화" />
 					<a href="/MyFirstWeb/boardselect.do">
-						<input type="button" value="리스트로"></a>
-					<form action="/MyFirstWeb/boarddelete.do" method="post">
-						<input type="hidden" value="${board.bId }" name="bId"/>
-						<input type="submit" value="삭제하기">
-					</form>
-					<form action="/MyFirstWeb/boardupdate.do" method="post">
-						<input type="hidden" value="${board.bId }" name="bId"/>
-						<input type="submit" value="수정하기">						
-					</form>
-					
+						<input type="button" value="리스트로">
+					</a>
 				</td>
-			</tr>
 		</table>
+	
+	</form>
 </body>
 </html>
