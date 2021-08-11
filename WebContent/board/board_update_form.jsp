@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>수정창</h1>
-	<form action="#" method="post">
+	<form action="http://localhost:8181/MyFirstWeb/boardupdateok.do" method="post">
 	
 		<!--  hidden 태그를 이용해 나머지 요소들도 다 첨부해주세요. -->
 		<input type="hidden" value="${board.bId }" name="bId" />

@@ -19,6 +19,11 @@ public class BoardDAO {
 	
 	private static final int WRITE_SUCCESS = 1;
 	private static final int WRITE_FAIL = 0;
+	private static final int DELETE_SUCCESS = 1;
+	private static final int DELETE_FAIL = 0;
+	private static final int UPDATE_SUCCESS = 1;
+	private static final int UPDATE_FAIL = 0;
+	
 	
 	private BoardDAO() {
 		try {
@@ -193,10 +198,10 @@ public class BoardDAO {
 			pstmt.setString(1, bId);
 			
 			pstmt.executeUpdate();
-			resultCode = 1;
+			resultCode = DELETE_SUCCESS;
 		}catch(Exception e){
 			e.printStackTrace();
-			resultCode = 0;
+			resultCode = DELETE_FAIL;
 		}finally {
 			try {
 				if(con != null && !con.isClosed()) {
@@ -211,12 +216,15 @@ public class BoardDAO {
 		return resultCode;
 	} //end deleteBoard
 
-	// 수정로직
+	// 글 수정로직
 	public int updateBoard(BoardVO board) {
+		// 변수 선언
 		Connection con = null;
 		PreparedStatement pstmt = null;
+		int resultCode;
 		
-		String sql = "UPDATE jspboard SET bname=? btitle=? bcontent=? WHERE bid=?";
+		String sql = "UPDATE jspboard SET bName=?, bTitle=?, bContent=?, "
+				+ "bDate=?, bHit=? WHERE bId=?";
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
@@ -224,12 +232,15 @@ public class BoardDAO {
 			pstmt.setString(1, board.getbName());
 			pstmt.setString(2, board.getbTitle());
 			pstmt.setString(3,  board.getbContent());
-			pstmt.setInt(4, board.getbId());
+			pstmt.setTimestamp(4,  board.getbDate());
+			pstmt.setInt(5,  board.getbHit());
+			pstmt.setInt(6, board.getbId());
 			
 			pstmt.executeUpdate();
-		
+			resultCode = UPDATE_SUCCESS;
 	}catch(Exception e) {
-		e.printStackTrace();
+			e.printStackTrace();
+			resultCode = UPDATE_FAIL;
 	}finally {
 		try {
 			if(con !=null && !con.isClosed()) {
@@ -241,8 +252,8 @@ public class BoardDAO {
 			e.printStackTrace();
 		}
 	}
-		return 0; //end updateBoard
-	}
+		return resultCode; 
+	}//end updateBoard
 }	
 
 		

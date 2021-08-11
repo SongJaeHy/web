@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import kr.co.ictedu.board.service.BoardDeleteService;
 import kr.co.ictedu.board.service.BoardDetailService;
 import kr.co.ictedu.board.service.BoardListService;
+import kr.co.ictedu.board.service.BoardUpdateService;
 import kr.co.ictedu.board.service.BoardWriteService;
 import kr.co.ictedu.board.service.IBoardService;
 
@@ -117,6 +118,16 @@ public class PatternServlet extends HttpServlet {
 			sv = new BoardDetailService();
 			sv.execute(request, response);
 			ui="/board/board_update_form.jsp";
+		}else if(uri.equals("/MyFirstWeb/boardupdateok.do")) {
+			// 1. 서비스 객체 생성
+			sv = new BoardUpdateService();
+			// 2. 서비스 메서드 생성
+			sv.execute(request, response);
+			// 3. 수정한 다음은 디테일로 보내기
+			// 내가 수정한 글 번호 받아오기
+			String strbId = request.getParameter("bId");
+			ui = "/boarddetail.do?bId=" + strbId;
+			
 		}else if(uri.equals("/MyFirstWeb/boarddelete.do")) {
 			sv = new BoardDeleteService();
 			sv.execute(request, response);
