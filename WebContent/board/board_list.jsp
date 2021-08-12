@@ -32,5 +32,6 @@
 		</tbody>
 	</table>
 	<a href="/MyFirstWeb/board/board_write_form.jsp">글쓰기</a>
+	<a href="/MyFirstWeb/userlogout.do">로그아웃</a>
 </body>
 </html>

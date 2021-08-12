@@ -12,6 +12,8 @@
 		<input type="text" name="uId" placeholder="ID"><br/>
 		<input type="password" name="uPw" placeholder="PW"><br/>
 		<input type="submit" value="로그인">
+				
 	</form>
+		<a href="/MyFirstWeb/users/users_join_form.jsp"><input type="button" value="회원가입"></a><br/>
 </body>
 </html>

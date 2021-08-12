@@ -19,7 +19,9 @@ import kr.co.ictedu.board.service.BoardUpdateService;
 import kr.co.ictedu.board.service.BoardWriteService;
 import kr.co.ictedu.board.service.IBoardService;
 import kr.co.ictedu.user.service.IUserService;
+import kr.co.ictedu.user.service.UserJoinService;
 import kr.co.ictedu.user.service.UserLoginService;
+import kr.co.ictedu.user.service.UserLogoutService;
 
 /**
  * Servlet implementation class PatternServlet
@@ -102,7 +104,9 @@ public class PatternServlet extends HttpServlet {
 		
 		
 		if(uri.equals("/MyFirstWeb/join.do")) {
-			System.out.println("회원가입 요청 확인");
+			usv = new UserJoinService();
+			usv.execute(request, response);
+			ui = "/users/user_login_form.jsp";
 		} else if(uri.equals("/MyFirstWeb/login.do")) {
 			usv = new UserLoginService();
 			usv.execute(request, response);
@@ -117,7 +121,11 @@ public class PatternServlet extends HttpServlet {
 			}
 		} else if(uri.equals("/MyFirstWeb/userupdate.do")) {
 			System.out.println("수정 요청 확인");
-		} else if(uri.equals("/MyFirstWeb/userdelete.do")) {
+		} else if(uri.equals("/MyFirstWeb/userlogout.do")) {
+			usv = new UserLogoutService();
+			usv.execute(request, response);
+			ui = "/users/user_login_form.jsp";
+		}else if(uri.equals("/MyFirstWeb/userdelete.do")) {
 			System.out.println("탈퇴 요청 확인");
 		} 
 		// PatternServlet2의 패턴을 .do로 고쳐서 여기 옮겨주세요.
