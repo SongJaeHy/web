@@ -2,8 +2,10 @@ package kr.co.ictedu.board.service;
 
 import java.sql.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.ictedu.board.model.BoardDAO;
 import kr.co.ictedu.board.model.BoardVO;
@@ -15,6 +17,19 @@ public class BoardUpdateService implements IBoardService{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
 		
+		HttpSession session = null;
+		session = request.getSession();
+		String idSession = (String)session.getAttribute("i_s");
+		
+		if(idSession == null) {
+			try {
+				String ui = "/users/user_login_form.jsp";
+				RequestDispatcher dp = request.getRequestDispatcher(ui);
+				dp.forward(request, response);
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+		}else {
 		// 1. 파라미터 6개 받아오기
 		String strbId=request.getParameter("bId");
 		int bId = Integer.parseInt(strbId);
@@ -38,7 +53,9 @@ public class BoardUpdateService implements IBoardService{
 		board.setbHit(bHit);
 		// 3.DAO 생성 및 update로직 호출(update로직은 직접작성해주세요.)
 		BoardDAO dao = BoardDAO.getInstance();
+		
 		dao.updateBoard(board);
-	
+		}
 	}
 }
+
