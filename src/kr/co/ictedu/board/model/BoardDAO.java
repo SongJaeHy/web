@@ -289,6 +289,86 @@ public class BoardDAO {
 			}
 		}
 	} // end upHit
+	
+	// 페이지 번호에 맏는 게시물 가져오기
+	public List<BoardVO> getPageList(int pageNum){
+		// 내부에서 사용할 변수 선언
+		List<BoardVO> boardList = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		
+		// 쿼리문(SELECT구문, 역순, 10개씩 pageNum에 맞춰서);=써 서 안된겁니다. 리미트구문에 = 안들어가요
+		String sql="SELECT * FROM jspboard ORDER BY bid DESC LIMIT ?,10";
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			pstmt.setInt(1, pageNum);
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardVO board = new BoardVO();
+				
+				board.setbId(rs.getInt("bId"));
+				board.setbName(rs.getString("bName"));
+				board.setbTitle(rs.getString("btitle"));
+				board.setbContent(rs.getString("bcontent"));
+				board.setbDate(rs.getTimestamp("bdate"));
+				board.setbHit(rs.getInt("bhit"));
+				
+				boardList.add(board);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+				if(rs != null && !rs.isClosed()) {
+					rs.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return boardList;
+		
+	}// end getpageList
+	public List<BoardVO> getBoardCount(int Count){
+		List<BoardVO> boardCount = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs =null;
+		
+		String sql="SELECT count(*) FROM jspboard";
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(sql);
+			
+			rs = pstmt.executeQuery();
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			try {
+				if(con != null && !con.isClosed()) {
+					con.close();
+				}
+				if(pstmt != null && !pstmt.isClosed()) {
+					pstmt.close();
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return boardCount; 
+		
+	}
 }	
 
 		
