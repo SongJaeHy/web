@@ -340,18 +340,24 @@ public class BoardDAO {
 		return boardList;
 		
 	}// end getpageList
-	public List<BoardVO> getBoardCount(int Count){
-		List<BoardVO> boardCount = new ArrayList<>();
+	
+	// 페이징 처리를 위해 DB내 전체 데이터 개수 알아오기
+	
+	public int getBoardCount(){
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs =null;
+		int CountNum = 0;
 		
-		String sql="SELECT count(*) FROM jspboard";
+		String sql="SELECT COUNT(*) FROM jspboard";
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(sql);
 			
 			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				CountNum = rs.getInt(1);
+			}
 		}catch(Exception e){
 			e.printStackTrace();
 		}finally {
@@ -362,13 +368,17 @@ public class BoardDAO {
 				if(pstmt != null && !pstmt.isClosed()) {
 					pstmt.close();
 				}
+				if(rs != null && !rs.isClosed()) {
+					rs.close();
+				}
 			}catch(Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return boardCount; 
+		return CountNum;
 		
-	}
+		
+	} // end getBoardCount
 }	
 
 		
